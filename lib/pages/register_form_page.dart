@@ -11,6 +11,25 @@ class RegisterFormPage extends StatefulWidget {
 class _RegisterFormPageState extends State<RegisterFormPage> {
   bool _hidePass = true;
 
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _storyController = TextEditingController();
+  final _passController = TextEditingController();
+  final _confirmPassController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose(); // clean field after delete widget
+    _phoneController.dispose();
+    _emailController.dispose();
+    _storyController.dispose();
+    _passController.dispose();
+    _confirmPassController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +42,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
           padding: EdgeInsets.all(16.0),
           children: [
             TextField(
+              controller: _nameController,
               decoration: InputDecoration(
                 labelText: 'Full Name *',
                 hintText: 'What do people call you?',
@@ -45,6 +65,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 10,
             ),
             TextFormField(
+              controller: _phoneController,
               maxLength: 11,
               decoration: InputDecoration(
                 labelText: "Phone Number *",
@@ -73,6 +94,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 10,
             ),
             TextFormField(
+              controller: _emailController,
               decoration: InputDecoration(
                 labelText: "Email Address ",
                 hintText: 'Enter a email address',
@@ -84,6 +106,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 20,
             ),
             TextFormField(
+              controller: _storyController,
               decoration: InputDecoration(
                 labelText: "Life Story ",
                 hintText: 'Telll us about your self',
@@ -96,6 +119,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 20,
             ),
             TextFormField(
+              controller: _passController,
               obscureText: _hidePass, // hide information on  form
               maxLength: 9,
               decoration: InputDecoration(
@@ -117,6 +141,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 20,
             ),
             TextFormField(
+              controller: _confirmPassController,
               obscureText: _hidePass,
               maxLength: 9,
               decoration: InputDecoration(
@@ -127,7 +152,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
             ),
             SizedBox(height: 15),
             RaisedButton(
-              onPressed: () {},
+              onPressed: _submitForm,
               color: Colors.green,
               child: Text(
                 'Submit form',
@@ -138,5 +163,12 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    print('Name: ${_nameController.text}');
+    print('Phone: ${_phoneController.text}');
+    print('Email: ${_emailController.text}');
+    print('Story: ${_storyController.text}');
   }
 }
