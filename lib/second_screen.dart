@@ -33,7 +33,8 @@ class _SecondScreenState extends State<SecondScreen> {
               style: TextStyle(fontSize: 24),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              String textToSendBack = textFieldController.text;
+              Navigator.pop(context, textToSendBack);
             },
           )
         ],
