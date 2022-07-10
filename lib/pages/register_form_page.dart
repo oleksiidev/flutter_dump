@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RegisterFormPage extends StatefulWidget {
   const RegisterFormPage({Key? key}) : super(key: key);
@@ -8,6 +9,8 @@ class RegisterFormPage extends StatefulWidget {
 }
 
 class _RegisterFormPageState extends State<RegisterFormPage> {
+  bool _hidePass = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +45,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 10,
             ),
             TextFormField(
+              maxLength: 11,
               decoration: InputDecoration(
                 labelText: "Phone Number *",
                 hintText: 'Where can we reach you? ',
@@ -60,6 +64,10 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                   borderSide: BorderSide(color: Colors.green, width: 2.0),
                 ),
               ),
+              keyboardType: TextInputType.phone, //input numbers
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ], //filter input just a numbers
             ),
             SizedBox(
               height: 10,
@@ -70,6 +78,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 hintText: 'Enter a email address',
                 icon: Icon(Icons.email),
               ),
+              keyboardType: TextInputType.emailAddress, //add to keyboard - @
             ),
             SizedBox(
               height: 20,
@@ -87,12 +96,19 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 20,
             ),
             TextFormField(
+              obscureText: _hidePass, // hide information on  form
+              maxLength: 9,
               decoration: InputDecoration(
                 labelText: "Password *",
                 hintText: 'Enter the password',
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.visibility),
-                  onPressed: () {},
+                  icon:
+                      Icon(_hidePass ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _hidePass = !_hidePass;
+                    });
+                  },
                 ),
                 icon: Icon(Icons.security),
               ),
@@ -101,13 +117,11 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               height: 20,
             ),
             TextFormField(
+              obscureText: _hidePass,
+              maxLength: 9,
               decoration: InputDecoration(
                 labelText: "Confirm Password * ",
                 hintText: 'Confirm the password',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.visibility),
-                  onPressed: () {},
-                ),
                 icon: Icon(Icons.border_color),
               ),
             ),
